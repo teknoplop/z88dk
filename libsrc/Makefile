@@ -13,7 +13,7 @@ include Make.config
 # LIBRARIES not built by the global list below:
 # - SP1 (build depends on customization and machine target, "make sp1" for options)
 
-all: genlibs z88libs tilibs zxlibs eplibs c128libs cpclibs \
+all: genlibs z88libs tilibs zxlibs eplibs c128libs cpclibs dbos_clib.lib \
 	abc80_clib.lib abc80ansi_clib.lib abc800_clib.lib \
 	ace_clib.lib aceansi_clib.lib aquarius_clib.lib aquansi_clib.lib c7420_clib.lib\
 	cpm_clib.lib einstein.lib gal_clib.lib m5_clib.lib mc1000_clib.lib mc1000ansi_clib.lib \
@@ -25,7 +25,7 @@ all: genlibs z88libs tilibs zxlibs eplibs c128libs cpclibs \
 	svi_clib.lib sam_clib.lib samansi_clib.lib sorcerer_clib.lib  sos_clib.lib tiki100.lib\
 	trs80_clib.lib vg5k_clib.lib vg5kansi_clib.lib vz_clib.lib vzansi_clib.lib x07_clib.lib \
 	embedded_clib.lib test_clib.lib \
-	preempt.lib x1ansi_clib.lib zx80_clib.lib zx81libs sp1-all
+	preempt.lib x1ansi_clib.lib zx80_clib.lib zx81libs  sp1-all
 
 genlibs: z80_crt0.lib gen_math.lib debug.lib malloc.lib gendos.lib ndos.lib adt.lib balloc.lib \
 	 im2.lib rect.lib algorithm.lib lib3d.lib x11.lib
@@ -1524,6 +1524,20 @@ embedded_clib.lib:
 	$(MAKE) -C setjmp
 	$(MAKE) -C assert
 	$(LIBLINKER) -DFORembedded -x$(OUTPUT_DIRECTORY)/embedded_clib @$(LISTFILE_DIRECTORY)/embedded.lst
+
+# darbo/s
+dbos_clib.lib:
+	@echo ''
+	@echo '--- Building DarbO/S Library ---'
+	@echo ''
+	$(MAKE) -C strings
+	$(MAKE) -C regex
+	$(MAKE) -C stdlib generic
+	$(MAKE) -C stdio generic
+	$(MAKE) -C printflike
+	$(MAKE) -C setjmp
+	$(MAKE) -C assert
+	$(LIBLINKER) -DFORdbos -x$(OUTPUT_DIRECTORY)/dbos_clib @$(LISTFILE_DIRECTORY)/dbos.lst
 
 # Galaksija - Stefano Bodrato
 gal_clib.lib:

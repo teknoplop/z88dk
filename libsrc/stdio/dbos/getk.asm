@@ -1,0 +1,4 @@
+	PUBLIC	getk
+
+.getk
+	ret

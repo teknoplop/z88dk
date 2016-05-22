@@ -1,0 +1,6 @@
+*.o
+*.lib
+*.def
+*.bin
+*.reloc
+*.tap

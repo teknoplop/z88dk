@@ -1,0 +1,5 @@
+stdio/dbos/fgetc_cons
+stdio/dbos/getk
+stdio/dbos/fputc_cons
+stdio/puts_cons
+@z80.lst
